@@ -5,7 +5,7 @@ import TodoList from '../todo-list/';
 import ItemStatusFilter from '..//item-status-filter/';
 import './app.css';
 
-export default class App extends Component = () => {
+export default class App extends Component { 
   constructor() {
     super();
 
@@ -15,7 +15,7 @@ export default class App extends Component = () => {
         { label: 'Learn React', important: true, id: 2 },
         { label: 'Take a Walk', important: false, id: 3 }
       ]
-    }
+    };
   }
 
   render() {

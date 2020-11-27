@@ -16,6 +16,20 @@ export default class App extends Component {
         { label: 'Take a Walk', important: false, id: 3 }
       ]
     };
+
+    this.deleteItem = (id) => {
+      this.setState(({ todoData }) => {
+        const index = todoData.findIndex((el) => el.id === id);
+        const newArray = [
+          ...todoData.slice(0, index),
+          ...todoData.slice(index + 1)
+        ];
+        
+        return {
+          todoData: newArray
+        }
+      });
+    };
   }
 
   render() {
@@ -30,7 +44,7 @@ export default class App extends Component {
 
         <TodoList 
           todos={this.state.todoData}
-          onDeleted={(id) => console.log('del', id)}
+          onDeleted={this.deleteItem}
         />
       </div>
     );

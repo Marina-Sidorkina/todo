@@ -10,6 +10,8 @@ export default class App extends Component {
   constructor() {
     super();
 
+    this.maxId = 100;
+
     this.state = {
       todoData: [
         { label: 'Drink Coffee', important: false, id: 1 },
@@ -26,6 +28,25 @@ export default class App extends Component {
           ...todoData.slice(index + 1)
         ];
         
+        return {
+          todoData: newArray
+        }
+      });
+    };
+
+    this.addItem = (text) => {
+      const newItem = {
+        label: text,
+        important: false,
+        id: this.maxId++
+      };
+
+      this.setState(({ todoData }) => {
+        const newArray = [
+          ...todoData,
+          newItem
+        ];
+
         return {
           todoData: newArray
         }
@@ -48,7 +69,7 @@ export default class App extends Component {
           onDeleted={this.deleteItem}
         />
 
-        <ItemAddForm />
+        <ItemAddForm onItemAdded={this.addItem}/>
       </div>
     );
   }

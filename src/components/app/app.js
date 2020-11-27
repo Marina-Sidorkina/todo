@@ -1,32 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import AppHeader from '../app-header/';
 import SearchPanel from '../search-panel/';
 import TodoList from '../todo-list/';
 import ItemStatusFilter from '..//item-status-filter/';
 import './app.css';
 
-const App = () => {
-  const todoData = [
-    { label: 'Drink Coffee', important: false, id: 1 },
-    { label: 'Learn React', important: true, id: 2 },
-    { label: 'Take a Walk', important: false, id: 3 }
-  ];
+export default class App extends Component = () => {
+  constructor() {
+    super();
 
-  return (
-    <div className="todo-app">
-      <AppHeader toDo={1} done={3} />
-      
-      <div className="top-panel d-flex">
-        <SearchPanel />
-        <ItemStatusFilter />
+    this.state = {
+      todoData: [
+        { label: 'Drink Coffee', important: false, id: 1 },
+        { label: 'Learn React', important: true, id: 2 },
+        { label: 'Take a Walk', important: false, id: 3 }
+      ]
+    }
+  }
+
+  render() {
+    return (
+      <div className="todo-app">
+        <AppHeader toDo={1} done={3} />
+        
+        <div className="top-panel d-flex">
+          <SearchPanel />
+          <ItemStatusFilter />
+        </div>
+
+        <TodoList 
+          todos={this.state.todoData}
+          onDeleted={(id) => console.log('del', id)}
+        />
       </div>
-
-      <TodoList 
-        todos={todoData}
-        onDeleted={(id) => console.log('del', id)}
-      />
-    </div>
-  );
+    );
+  }
 }
-
-export default App;

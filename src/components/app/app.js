@@ -12,21 +12,21 @@ export default class App extends Component {
 
     this.maxId = 100;
 
+    this.createTodoItem = (label) => {
+      return {
+        label,
+        important: false,
+        done: false,
+        id: this.maxId++
+      }
+    };
+
     this.state = {
       todoData: [
         this.createTodoItem('Drink Coffee'),
         this.createTodoItem('Learn React'),
         this.createTodoItem('Take a Walk')
       ]
-    };
-
-    this.createTodoItem = (label) => {
-      return {
-        label,
-        important: false,
-        done: false
-        id: this.maxId++
-      }
     };
 
     this.deleteItem = (id) => {
@@ -63,7 +63,19 @@ export default class App extends Component {
     };
 
     this.onToggleDone = (id) => {
-      console.log("onToggleDone ", id);
+      this.setState(({ todoData }) => {
+        const index = todoData.findIndex((el) => el.id === id);
+        const newItem = {...todoData[index], done: !todoData[index].done};
+        const newArray = [
+          ...todoData.slice(0, index),
+          newItem,
+          ...todoData.slice(index + 1)
+        ];
+        
+        return {
+          todoData: newArray
+        }
+      });
     };
   }
 

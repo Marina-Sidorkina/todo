@@ -76,7 +76,7 @@ export default class App extends Component {
           todos={this.state.todoData}
           onDeleted={this.deleteItem}
           onToggleImportant={this.onToggleImportant}
-          onToggleDone={this.onToggleImportant}
+          onToggleDone={this.onToggleDone}
         />
 
         <ItemAddForm onItemAdded={this.addItem}/>

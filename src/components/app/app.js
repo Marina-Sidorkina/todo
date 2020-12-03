@@ -12,15 +12,6 @@ export default class App extends Component {
 
     this.maxId = 100;
 
-    this.createTodoItem = (label) => {
-      return {
-        label,
-        important: false,
-        done: false,
-        id: this.maxId++
-      }
-    };
-
     this.state = {
       todoData: [
         this.createTodoItem('Drink Coffee'),
@@ -31,90 +22,104 @@ export default class App extends Component {
       filter: 'all'
     };
 
-    this.deleteItem = (id) => {
-      this.setState(({ todoData }) => {
-        const index = todoData.findIndex((el) => el.id === id);
-        const newArray = [
-          ...todoData.slice(0, index),
-          ...todoData.slice(index + 1)
-        ];
-        
-        return {
-          todoData: newArray
-        }
-      });
-    };
+    this.onToggleDone = this.onToggleDone.bind(this);
+    this.onToggleImportant = this.onToggleImportant.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
+  }
 
-    this.addItem = (text) => {
-      const newItem = this.createTodoItem(text);
-
-      this.setState(({ todoData }) => {
-        const newArray = [
-          ...todoData,
-          newItem
-        ];
-
-        return {
-          todoData: newArray
-        }
-      });
-    };
-
-    this.toggleProperty = (arr, id, propName) => {
-      const index = arr.findIndex((el) => el.id === id);
-      const newItem = {...arr[index], [propName]: !arr[index][propName]};
-      
-      return [
-        ...arr.slice(0, index),
-        newItem,
-        ...arr.slice(index + 1)
-      ];
-    };
-
-    this.onToggleImportant = (id) => {
-      this.setState(({ todoData }) => {
-        return {
-          todoData: this.toggleProperty(todoData, id, 'important')
-        }
-      });
-    };
-
-    this.onToggleDone = (id) => {
-      this.setState(({ todoData }) => {
-        return {
-          todoData: this.toggleProperty(todoData, id, 'done')
-        }
-      });
-    };
-
-    this.search = (items, term) => {
-      if(term === '') return items;
-
-      return items.filter((item) => {
-        return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
-      });
-    };
-
-    this.onSearchChange = (term) => {
-      this.setState({ term });
-    };
-
-    this.filter = (items, filter) => {
-      switch(filter) {
-        case 'all':
-          return items;
-        case 'active':
-          return items.filter((item) => !item.done);
-        case 'done':
-          return items.filter((item) => item.done);
-        default:
-          return items;
-      };
-    };
-
-    this.onFilterChange = (filter) => {
-      this.setState({ filter });
+  createTodoItem = (label) => {
+    return {
+      label,
+      important: false,
+      done: false,
+      id: this.maxId++
     }
+  };
+
+  deleteItem = (id) => {
+    this.setState(({ todoData }) => {
+      const index = todoData.findIndex((el) => el.id === id);
+      const newArray = [
+        ...todoData.slice(0, index),
+        ...todoData.slice(index + 1)
+      ];
+      
+      return {
+        todoData: newArray
+      }
+    });
+  };
+
+  addItem = (text) => {
+    const newItem = this.createTodoItem(text);
+
+    this.setState(({ todoData }) => {
+      const newArray = [
+        ...todoData,
+        newItem
+      ];
+
+      return {
+        todoData: newArray
+      }
+    });
+  };
+
+  toggleProperty = (arr, id, propName) => {
+    const index = arr.findIndex((el) => el.id === id);
+    const newItem = {...arr[index], [propName]: !arr[index][propName]};
+    
+    return [
+      ...arr.slice(0, index),
+      newItem,
+      ...arr.slice(index + 1)
+    ];
+  };
+
+  onToggleImportant = (id) => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.toggleProperty(todoData, id, 'important')
+      }
+    });
+  };
+
+  onToggleDone = (id) => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.toggleProperty(todoData, id, 'done')
+      }
+    });
+  };
+
+  search = (items, term) => {
+    if(term === '') return items;
+
+    return items.filter((item) => {
+      return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
+    });
+  };
+
+  onSearchChange = (term) => {
+    this.setState({ term });
+  };
+
+  filter = (items, filter) => {
+    switch(filter) {
+      case 'all':
+        return items;
+      case 'active':
+        return items.filter((item) => !item.done);
+      case 'done':
+        return items.filter((item) => item.done);
+      default:
+        return items;
+    };
+  };
+
+  onFilterChange = (filter) => {
+    this.setState({ filter });
   }
 
   render() {

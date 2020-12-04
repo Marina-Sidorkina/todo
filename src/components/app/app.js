@@ -26,9 +26,15 @@ export default class App extends Component {
     this.onToggleImportant = this.onToggleImportant.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
-  }
+    this.createTodoItem = this.createTodoItem.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.toggleProperty = this.toggleProperty.bind(this);
+    this.search = this.search.bind(this);
+    this.filter = this.filter.bind(this);
+  };
 
-  createTodoItem = (label) => {
+  createTodoItem(label) {
     return {
       label,
       important: false,
@@ -37,7 +43,7 @@ export default class App extends Component {
     }
   };
 
-  deleteItem = (id) => {
+  deleteItem(id) {
     this.setState(({ todoData }) => {
       const index = todoData.findIndex((el) => el.id === id);
       const newArray = [
@@ -51,7 +57,7 @@ export default class App extends Component {
     });
   };
 
-  addItem = (text) => {
+  addItem(text) {
     const newItem = this.createTodoItem(text);
 
     this.setState(({ todoData }) => {
@@ -66,7 +72,7 @@ export default class App extends Component {
     });
   };
 
-  toggleProperty = (arr, id, propName) => {
+  toggleProperty(arr, id, propName) {
     const index = arr.findIndex((el) => el.id === id);
     const newItem = {...arr[index], [propName]: !arr[index][propName]};
     
@@ -77,7 +83,7 @@ export default class App extends Component {
     ];
   };
 
-  onToggleImportant = (id) => {
+  onToggleImportant(id) {
     this.setState(({ todoData }) => {
       return {
         todoData: this.toggleProperty(todoData, id, 'important')
@@ -85,7 +91,7 @@ export default class App extends Component {
     });
   };
 
-  onToggleDone = (id) => {
+  onToggleDone(id) {
     this.setState(({ todoData }) => {
       return {
         todoData: this.toggleProperty(todoData, id, 'done')
@@ -93,7 +99,7 @@ export default class App extends Component {
     });
   };
 
-  search = (items, term) => {
+  search(items, term) {
     if(term === '') return items;
 
     return items.filter((item) => {
@@ -101,11 +107,11 @@ export default class App extends Component {
     });
   };
 
-  onSearchChange = (term) => {
+  onSearchChange(term) {
     this.setState({ term });
   };
 
-  filter = (items, filter) => {
+  filter(items, filter) {
     switch(filter) {
       case 'all':
         return items;
@@ -118,7 +124,7 @@ export default class App extends Component {
     };
   };
 
-  onFilterChange = (filter) => {
+  onFilterChange(filter) {
     this.setState({ filter });
   }
 

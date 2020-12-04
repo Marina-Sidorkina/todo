@@ -13,13 +13,13 @@ export default class ItemAddForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onLabelChange = (e) => {
+  onLabelChange(e) {
     this.setState({
       label: e.target.value
     });
   };
 
-  onSubmit = (e) => {
+  onSubmit(e) {
     e.preventDefault();
     this.props.onItemAdded(this.state.label);
     this.setState({

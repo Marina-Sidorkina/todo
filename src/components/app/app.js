@@ -26,12 +26,8 @@ export default class App extends Component {
     this.onToggleImportant = this.onToggleImportant.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
-    this.createTodoItem = this.createTodoItem.bind(this);
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
-    this.toggleProperty = this.toggleProperty.bind(this);
-    this.search = this.search.bind(this);
-    this.filter = this.filter.bind(this);
   };
 
   createTodoItem(label) {
